@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Show context
         run: |
-          if  [ -z "${{ secrets.DEBUG_PAT }}" ]; then
+          if  [ -z "${{ secrets.DTOKEN }}" ]; then
             echo "ERROR: Docker secrets missing or not available in this run."
             echo "Add DOCKERHUB_USERNAME and DOCKER_TOKEN in repo Settings → Secrets → Actions."
             echo "If this is a forked PR, secrets are not exposed — run on a branch in this repo."
