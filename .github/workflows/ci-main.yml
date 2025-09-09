@@ -4,7 +4,7 @@ on: [push,workflow_dispatch]
 
 jobs:
   call-docker:
-    uses: testVinaycicd/learn-1-terraform/.github/workflows/ci-main.yml@main   # must include @ref
+    uses: testVinaycicd/learn-1-terraform/.github/workflows/ci-main.yml@main   # must include @refs
     with:
       tag: ${{ github.sha }}
     secrets:
