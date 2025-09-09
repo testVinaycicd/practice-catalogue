@@ -2,7 +2,6 @@ name: CI MAIN
 
 on: [push,workflow_dispatch]
 
-
 jobs:
   call-docker:
     uses: testVinaycicd/learn-1-terraform/.github/workflows/ci-main.yml@main   # must include @ref
