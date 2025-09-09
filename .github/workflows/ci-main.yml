@@ -5,6 +5,6 @@ on: [push,workflow_dispatch]
 
 jobs:
   call-docker:
-    uses: https://github.com/testVinaycicd/learn-1-terraform.git/.github/workflows/docker-workflow.yml@main   # must include @ref
+    uses: testVinaycicd/learn-1-terraform.git/.github/workflows/docker-workflow.yml@main   # must include @ref
     with:
       tag: ${{ github.sha }}
