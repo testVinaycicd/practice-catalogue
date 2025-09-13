@@ -2,21 +2,7 @@ name: DB SCHEMA IMAGE
 on: workflow_dispatch
 
 jobs:
-  dockerbuild-and-dockerpush:
-    runs-on: self-hosted
-    steps:
-      -
-      - name: check out repo code
-        uses: actions/checkout@v4
-      - name: Make docker image
-        run: |
-          cd db
-          export PATH=/home/github/.local/bin:/home/github/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
-          docker build -t 886436958775.dkr.ecr.us-east-1.amazonaws.com/catalogue-schema:latest .
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 886436958775.dkr.ecr.us-east-1.amazonaws.com
-          docker push 886436958775.dkr.ecr.us-east-1.amazonaws.com/catalogue-schema:latest
-
-  build:
+  build-db-image:
     runs-on: ubuntu-latest
     steps:
       - name: Call from other repo
