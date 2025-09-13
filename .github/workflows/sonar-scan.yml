@@ -5,4 +5,4 @@ on:
       - "*"
 jobs:
   common:
-    uses: testVinaycicd/learn-1-terraform/.github/workflows/sonar-test@main
+    uses: testVinaycicd/learn-1-terraform/.github/workflows/sonar-test.yml@main
