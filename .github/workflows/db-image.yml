@@ -12,7 +12,7 @@ jobs:
         run: echo "tag=${{ inputs.tag }}"
 
       - name: Component name
-        run: echo "component name=${{ inputs.component_name }}"
+        run: echo "component name=catalogue-db"
 
       - name: Check docker
         run: |
@@ -47,7 +47,7 @@ jobs:
         with:
           context: ./db
           push: true
-          tags: crysis307/${{ inputs.component_name }}:latest,crysis307/${{ inputs.component_name}}:${{ github.sha }}
+          tags: crysis307/catalogue-db:latest,crysis307/catalogue-db:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -55,7 +55,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         continue-on-error: true
         with:
-          image-ref: crysis307/${{ inputs.component_name }}:${{ github.sha }}
+          image-ref: crysis307/catalogue-db:${{ github.sha }}
           format: 'table'
           exit-code: '1'   # fail build on critical
           vuln-type: 'os,library'
