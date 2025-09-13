@@ -1,4 +1,4 @@
-name: Ci Pull Request
+name: Ci SONAR SCAN
 on:
   pull_request:
     branches:

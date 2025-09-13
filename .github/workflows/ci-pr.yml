@@ -1,4 +1,4 @@
-name: Ci Pull Request
+name: CI PULL REQUEST
 on:
   pull_request:
     branches:
