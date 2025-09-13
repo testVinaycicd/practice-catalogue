@@ -56,7 +56,7 @@ jobs:
         continue-on-error: true
         with:
           image-ref: crysis307/catalogue-db:${{ github.sha }}
-          format: 'table'
+          format: "sarif"
           exit-code: '1'   # fail build on critical
           vuln-type: 'os,library'
         env:
