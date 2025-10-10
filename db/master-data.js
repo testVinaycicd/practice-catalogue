@@ -33,7 +33,7 @@ db.users.insertMany([
     {name: 'user', password: 'password', email: 'user@me.com'}
 ]);
 
-// unique index on the name ss
+// unique index on the name sswss
 db.users.createIndex(
     {name: 1},
     {unique: true}

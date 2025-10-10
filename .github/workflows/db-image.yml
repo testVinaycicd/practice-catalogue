@@ -47,7 +47,7 @@ jobs:
         with:
           context: ./db
           push: true
-          tags: crysis307/catalogue-db:latest,crysis307/catalogue-db:${{ github.sha }}
+          tags: crysis307/mongodb:latest,crysis307/mongodb:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -55,7 +55,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         continue-on-error: true
         with:
-          image-ref: crysis307/catalogue-db:${{ github.sha }}
+          image-ref: crysis307/mongodb:${{ github.sha }}
           format: "sarif"
           exit-code: '1'   # fail build on critical
           vuln-type: 'os,library'
