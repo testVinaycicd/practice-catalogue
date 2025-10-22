@@ -1,17 +1,17 @@
 #Begginer style
-FROM node:20
-
-USER node
-
-WORKDIR /app
-
-COPY package.json ./
-
-RUN npm install
-
-COPY . .
-
-CMD ["node","server.js"]
+#FROM node:20
+#
+#USER node
+#
+#WORKDIR /app
+#
+#COPY package.json ./
+#
+#RUN npm install
+#
+#COPY . .
+#
+#CMD ["node","server.js"]
 
 
 #Intermediate
@@ -68,3 +68,43 @@ CMD ["node","server.js"]
 #
 #CMD ["node","server.js"]
 
+FROM node:20-alpine AS deps
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+LABEL maintainer=vinay
+
+
+# ---- Stage 2: build (optional; keep for parity)
+# If you don't transpile/bundle, this is just a copy stage
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY . .
+# If you compile TS or build assets, do it here:
+# RUN npm ci && npm run build
+# Otherwise we rely on deps from the deps stage at runtime
+
+
+#stage 3:runner
+#add group -S= system group (appgroup) adduser -S=system user appuser -G appgroup=add appuser to appgroup
+FROM node:20-alpine AS runner
+ENV PORT=8080
+WORKDIR /app
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+USER appuser
+
+COPY --from=deps /app/node_modules ./node_modules
+
+COPY --chown=appuser:appgroup --from=build /app/ ./
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD curl -f http:localhost:8080/health || exit 1
+
+CMD ["node","server.js"]
