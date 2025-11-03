@@ -1,5 +1,5 @@
 name: DB SCHEMA IMAGE
-on: workflow_dispatch
+on: [ push,workflow_dispatch ]
 
 jobs:
   build-db-image:

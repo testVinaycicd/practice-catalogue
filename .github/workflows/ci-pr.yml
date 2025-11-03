@@ -7,4 +7,4 @@ jobs:
   common:
     uses: testVinaycicd/learn-1-terraform/.github/workflows/ci-pr.yml@main
     with:
-      component_name: catalogue
+      component_name: "catalogue"
