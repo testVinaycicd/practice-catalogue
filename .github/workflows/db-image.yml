@@ -51,6 +51,8 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+
+
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@master
         continue-on-error: true
@@ -62,3 +64,19 @@ jobs:
         env:
           # suppress CLI version check so the action doesn't fail on minor Trivy releases
           TRIVY_SKIP_VERSION_CHECK: 'true'
+
+  Update-mongo:
+    runs-on: self-hosted
+    needs: build-db-image
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          repository: testVinaycicd/learn-tf
+          path: helm
+      - name: Helm Install
+        run: |
+          export PATH=/home/github/.local/bin:/home/github/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+          GID=$(curl -s https://api.github.com/repos/testVinaycicd/practice-catalogue/commits/main | jq -r '.sha')
+          aws eks update-kubeconfig  --name mikey-eks
+          bash "helm/learn-helm/precona-mongodb/run.sh" $GID
